@@ -1,0 +1,6 @@
+# 复制本文件为 db-local.properties 后填写本机 MySQL 参数。
+# 密码行去掉行首 # 后填写；未知密码时在线测试会明确跳过。
+db.driver=com.mysql.cj.jdbc.Driver
+db.url=jdbc:mysql://127.0.0.1:3306/mybatis
+db.username=root
+# db.password=

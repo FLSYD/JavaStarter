@@ -1,0 +1,14 @@
+target/
+/src/test/resources/db-local.properties
+README.md
+.idea
+.vscode
+src/main/java/demo1
+src/main/java/demo2
+src/main/java/com/itheima
+src/main/resources/com/itheima
+src/test/java/com/itheima
+src/test/java/demo1
+src/main/java/com/dao/DeptDao.java
+src/main/java/com/entity/Dept.java
+
