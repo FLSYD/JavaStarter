@@ -4,7 +4,7 @@
 <!--namespace:命令空间。现在可以随便起名。
               后续需要和dao的名称一致。
 -->
-<mapper namespace="com.dao.UserDao">
+<mapper namespace="com.dao.UsersDao">
    <!--根据id查询语句
             #{id}:表示占位符？。  mybatis会自动给该占位符赋值。
        resultType:结果类型。[查询的结果映射为的类型]

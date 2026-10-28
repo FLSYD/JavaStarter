@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.EmployeeDao">
+    <resultMap id="EmployeeResultMap" type="com.entity.Employee">
+        <id property="id" column="emp_id"/>
+        <result property="name" column="emp_name"/>
+        <result property="gender" column="gender"/>
+        <result property="age" column="age"/>
+        <result property="dept" column="dept"/>
+        <result property="job" column="job"/>
+        <result property="salary" column="salary"/>
+        <result property="hireDate" column="hire_date"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+    </resultMap>
+    <select id="selectByCondition" resultMap="EmployeeResultMap">
+        select * from employee
+        <where>
+            <if test="name != null and name != ''">
+                and emp_name = #{name}
+            </if>
+            <if test="dept != null and dept != ''">
+                and dept = #{dept}
+            </if>
+        </where>
+    </select>
+    <select id="selectByCondition2" resultMap="EmployeeResultMap">
+        select * from employee
+        <where>
+            <choose>
+                <when test="name != null and name != ''">
+                    and emp_name = #{name}
+                </when>
+                <when test="dept != null and dept != ''">
+                    and dept = #{dept}
+                </when>
+            </choose>
+        </where>
+    </select>
+    <select id="selectByCondition3" resultMap="EmployeeResultMap">
+        select * from employee
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="name != null and name != ''">
+                and emp_name = #{name}
+            </if>
+            <if test="dept != null and dept != ''">
+                or dept = #{dept}
+            </if>
+        </trim>
+    </select>
+    <update id="updateByCondition" parameterType="com.entity.Employee">
+        update employee
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                emp_name = #{name},
+            </if>
+        </trim>
+    </update>
+    <delete id="batchDelete" parameterType="list">
+        delete from employee where emp_id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="batchAdd" parameterType="list">
+        insert into employee (emp_name, gender, age, dept, job, salary, hire_date, phone, email) values
+        <foreach collection="list" item="emp" separator=",">
+            (#{emp.name}, #{emp.gender}, #{emp.age}, #{emp.dept}, #{emp.job}, #{emp.salary}, #{emp.hireDate}, #{emp.phone}, #{emp.email})
+        </foreach>
+    </insert>
+</mapper>

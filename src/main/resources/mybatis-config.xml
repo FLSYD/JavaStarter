@@ -9,6 +9,13 @@
     <settings>
         <setting name="logImpl" value="LOG4J2"/>
     </settings>
+    <!--typeAliases-->
+        <!--起别名-->
+        <!--typeAlias type="com.aaa.entity.Users" alias="U"/>
+        -->
+        <!--为该包下的实体类起别名： 别名为类名-->
+        <!--package name="com.entity"/>-->
+    <!--/typeAliases-->
     <environments default="mysql">
         <environment id="mysql">
             <transactionManager type="JDBC"/>
@@ -24,6 +31,9 @@
     <mappers>
         <mapper resource="com/itheima/mapper/BrandMapper.xml"/>
         <mapper resource="com/entity/mapper/UsersMapper.xml"/>
+        <mapper resource="com/entity/mapper/OrdersMapper.xml"/>
+        <mapper resource="com/entity/mapper/ClazzMapper.xml"/>
+        <mapper resource="com/entity/mapper/EmployeeMapper.xml"/>
     </mappers>
 
 </configuration>

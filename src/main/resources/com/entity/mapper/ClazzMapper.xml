@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"  >
+<mapper namespace="com.dao.ClazzDao">
+    <resultMap id="ClazzResultMap" type="com.entity.Clazz">
+        <id property="cid" column="c_id"/>
+        <result property="cname" column="c_name"/>
+        <result property="teacherId" column="teacher_id"/>
+        <association property="teacher" javaType="com.entity.Teacher">
+            <id property="tid" column="t_id"/>
+            <result property="tname" column="t_name"/>
+        </association>
+        <collection property="students" ofType="com.entity.Student">
+            <id property="sid" column="s_id"/>
+            <result property="sname" column="s_name"/>
+            <result property="classId" column="class_id"/>
+        </collection>
+    </resultMap>
+    <select id="getById" resultMap="ClazzResultMap">
+        select * from clazz c inner join teacher t on c.teacher_id = t.t_id where c.c_id = #{cid}
+    </select>
+    <select id="getByIdWithStudents" resultMap="ClazzResultMap">
+        select * from clazz c inner join teacher t on c.teacher_id = t.t_id inner join student s on c.c_id = s.class_id where c.c_id = #{cid}
+    </select>
+</mapper>

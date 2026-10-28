@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.jupiter.api.Test;
 import java.io.Reader;
 import java.util.List;
-import com.dao.UserDao;
+import com.dao.UsersDao;
 
 public class UsersTest {
     @Test
@@ -16,8 +16,8 @@ public class UsersTest {
         Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        Users users = userDao.get_id(1);
+        UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
+        Users users = usersDao.get_id(1);
         System.out.println(users);
     }
 
@@ -26,8 +26,8 @@ public class UsersTest {
         Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        List<Users> users = userDao.get_all();
+        UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
+        List<Users> users = usersDao.get_all();
         System.out.println(users);
     }
 
@@ -36,11 +36,11 @@ public class UsersTest {
         Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
         Users users = new Users();
         users.setName("Tom");
         users.setAge(12);
-        userDao.add(users);
+        usersDao.add(users);
         sqlSession.commit();
         System.out.println("添加成功");
     }
@@ -50,8 +50,8 @@ public class UsersTest {
         Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        userDao.delete(2);
+        UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
+        usersDao.delete(2);
         sqlSession.commit();
         System.out.println("删除成功");
     }
@@ -65,8 +65,8 @@ public class UsersTest {
         users.setId(11);
         users.setName("Bob");
         users.setAge(12);
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        userDao.update(users);
+        UsersDao usersDao = sqlSession.getMapper(UsersDao.class);
+        usersDao.update(users);
         sqlSession.commit();
         System.out.println("修改成功");
     }
