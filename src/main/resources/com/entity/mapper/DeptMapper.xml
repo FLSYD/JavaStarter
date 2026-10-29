@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DeptDao">
+    <resultMap id="DeptResultMap" type="com.entity.Dept">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    <select id="selectById" parameterType="int" resultMap="DeptResultMap">
+        SELECT * FROM dept WHERE id = #{id}
+    </select>
+    <select id="getAll" resultMap="DeptResultMap"> 
+        SELECT * FROM dept
+    </select>
+    <insert id="insert" parameterType="String">
+        INSERT INTO dept (name) VALUES (#{name})
+    </insert>
+    <update id="update" parameterType="String, int">
+        UPDATE dept SET name = #{name} WHERE id = #{id}
+    </update>
+    <delete id="delete" parameterType="int">   
+        DELETE FROM dept WHERE id = #{id}
+    </delete>
+</mapper>

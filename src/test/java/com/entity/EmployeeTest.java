@@ -11,7 +11,9 @@ import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.time.LocalDate;
-
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import java.util.Arrays;
 
 public class EmployeeTest {
     @Test
@@ -99,6 +101,86 @@ public class EmployeeTest {
         int result = employeeDao.batchAdd(employees);
         System.out.println(result);
         sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSelectByCondition4() throws IOException {
+        Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeDao employeeDao = sqlSession.getMapper(EmployeeDao.class);
+        Employee employee = new Employee();
+        employee.setName("李萌");
+        employee.setDept("研发部");
+        List<Employee> e = employeeDao.selectByCondition4(employee);
+        System.out.println(e);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSelectByCondition5() throws IOException {
+        Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeDao employeeDao = sqlSession.getMapper(EmployeeDao.class);
+        Employee employee = new Employee();
+        employee.setName("'王浩'");
+        employee.setDept("1 or 1=1");
+        List<Employee> e = employeeDao.selectByCondition5(employee);
+        System.out.println(e);
+        sqlSession.close();
+    }
+
+
+    @Test
+    public void testSelectByCondition6() throws IOException {
+        Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeDao employeeDao = sqlSession.getMapper(EmployeeDao.class);
+        Employee employee = new Employee();
+        employee.setName("浩");
+        List<Employee> e = employeeDao.selectByCondition6(employee);
+        System.out.println(e);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSelectByCondition7() throws IOException {
+        Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeDao employeeDao = sqlSession.getMapper(EmployeeDao.class);
+        List<Employee> e = employeeDao.selectByCondition7(20, 25);
+        System.out.println(e);
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSelectPage() throws IOException {
+        Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeDao employeeDao = sqlSession.getMapper(EmployeeDao.class);
+        PageHelper.startPage(8, 5);
+        List<Employee> e = employeeDao.selectPage();
+        PageInfo<Employee> pageInfo = new PageInfo<>(e);
+        System.out.println("总条数:"+pageInfo.getTotal());
+        System.out.println("当前页的数据:"+pageInfo.getList());
+        System.out.println("总页码:"+pageInfo.getPages());
+        System.out.println("页码序列:"+ Arrays.toString(pageInfo.getNavigatepageNums()));
+        sqlSession.close();
+    }
+
+    @Test
+    public void testSelectByCondition8() throws IOException {
+        Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        EmployeeDao employeeDao = sqlSession.getMapper(EmployeeDao.class);
+        List<Employee> employees = employeeDao.selectByCondition8("emp_name");
+        System.out.println(employees);
         sqlSession.close();
     }
 }

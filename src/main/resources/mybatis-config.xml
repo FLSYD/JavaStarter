@@ -16,6 +16,14 @@
         <!--为该包下的实体类起别名： 别名为类名-->
         <!--package name="com.entity"/>-->
     <!--/typeAliases-->
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+          <!-- 使用下面的方式配置参数，后面会有所有的参数介绍 -->
+          <!--分页合理化:-->
+          <property name="reasonable" value="true"/>
+        </plugin>
+      </plugins>
     <environments default="mysql">
         <environment id="mysql">
             <transactionManager type="JDBC"/>
@@ -34,6 +42,7 @@
         <mapper resource="com/entity/mapper/OrdersMapper.xml"/>
         <mapper resource="com/entity/mapper/ClazzMapper.xml"/>
         <mapper resource="com/entity/mapper/EmployeeMapper.xml"/>
+        <mapper resource="com/entity/mapper/DeptMapper.xml"/>
     </mappers>
 
 </configuration>
