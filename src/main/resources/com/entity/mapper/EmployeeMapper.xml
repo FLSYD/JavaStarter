@@ -3,6 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.EmployeeDao">
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
     <resultMap id="EmployeeResultMap" type="com.entity.Employee">
         <id property="id" column="emp_id"/>
         <result property="name" column="emp_name"/>
